@@ -2,10 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchposts } from "../API/api";
 
 export const FetchRQ = () => {
-  const { data } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["posts"], // useState
     queryFn: fetchposts, // useEffect
   });
+
+  // Conditional rendering based on loading, error, and posts data
+  if (isPending) return <p>Loading...</p>;
+  if (isError) return <p> Error: {error.message || "Something went wrong!"}</p>;
 
   return (
     <div>

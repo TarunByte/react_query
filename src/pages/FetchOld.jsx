@@ -3,23 +3,31 @@ import { fetchposts } from "../API/api";
 
 export const FetchOld = () => {
   const [posts, setPosts] = useState([]);
-  // const [isLoading, setIsLoading] = useState([]);
-  // const [isError, setIsError] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
+  // Fetch posts data function
   const getPostsData = async () => {
     try {
       const res = await fetchposts();
-      // console.log(res);
-      res.status === 200 ? setPosts(res.data) : [];
+      if (res.status === 200) {
+        setPosts(res.data); // Set the fetched posts data
+        setIsLoading(false); // Turn off loading state
+      }
     } catch (error) {
       console.log(error);
-      return [];
+      setIsError(true); // Set error state
+      setIsLoading(false); // Turn off loading state
     }
   };
 
   useEffect(() => {
     getPostsData();
   }, []);
+
+  // Conditional rendering based on loading, error, and posts data
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Something went wrong!</p>;
 
   return (
     <div>
