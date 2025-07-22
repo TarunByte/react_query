@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchposts } from "../API/api";
+import { NavLink } from "react-router-dom";
 
 export const FetchRQ = () => {
   const { data, isPending, isError, error } = useQuery({
@@ -22,9 +23,11 @@ export const FetchRQ = () => {
           const { id, title, body } = curElem;
           return (
             <li key={id}>
-              <p>{id}</p>
-              <p>{title}</p>
-              <p>{body}</p>
+              <NavLink to={`/rq/${id}`}>
+                <p>{id}</p>
+                <p>{title}</p>
+                <p>{body}</p>
+              </NavLink>
             </li>
           );
         })}
