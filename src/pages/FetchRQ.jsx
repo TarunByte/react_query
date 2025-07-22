@@ -6,6 +6,7 @@ export const FetchRQ = () => {
     queryKey: ["posts"], // useState
     queryFn: fetchposts, // useEffect
     // gcTime: 1000,
+    staleTime: 10000,
   });
 
   // Conditional rendering based on loading, error, and posts data
