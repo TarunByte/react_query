@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchposts } from "../API/api";
+import axios from "axios";
 
 export const FetchOld = () => {
   const [posts, setPosts] = useState([]);
@@ -9,7 +10,9 @@ export const FetchOld = () => {
   // Fetch posts data function
   const getPostsData = async () => {
     try {
-      const res = await fetchposts();
+      const res = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts?_start=0&_limit=3"
+      );
       if (res.status === 200) {
         setPosts(res.data); // Set the fetched posts data
         setIsLoading(false); // Turn off loading state
