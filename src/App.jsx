@@ -5,6 +5,7 @@ import { FetchOld } from "./pages/FetchOld";
 import { FetchRQ } from "./pages/FetchRQ";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,8 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router}> </RouterProvider>;
+      <RouterProvider router={router}> </RouterProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
