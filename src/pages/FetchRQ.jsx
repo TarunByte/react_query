@@ -1,15 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { fetchposts } from "../API/api";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 export const FetchRQ = () => {
+  const [pageNumber, setPageNumber] = useState(0);
+
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["posts"], // useState
-    queryFn: fetchposts, // useEffect
-    // gcTime: 1000,
-    // staleTime: 10000,
-    refetchInterval: 1000,
-    refetchIntervalInBackground: true,
+    queryKey: ["posts", pageNumber], // useState
+    queryFn: () => fetchposts(pageNumber), // useEffect
+    placeholderData: keepPreviousData,
   });
 
   // Conditional rendering based on loading, error, and posts data
@@ -32,6 +32,17 @@ export const FetchRQ = () => {
           );
         })}
       </ul>
+
+      <div className="pagination-section container">
+        <button
+          disabled={pageNumber === 0 ? true : false}
+          onClick={() => setPageNumber((prev) => prev - 3)}
+        >
+          Prev
+        </button>
+        <p>{pageNumber / 3 + 1}</p>
+        <button onClick={() => setPageNumber((prev) => prev + 3)}>Next</button>
+      </div>
     </div>
   );
 };

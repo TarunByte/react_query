@@ -5,9 +5,9 @@ const api = axios.create({
 });
 
 // to fetch the data
-export const fetchposts = async () => {
+export const fetchposts = async (pageNumber) => {
   try {
-    const res = await api.get("/posts");
+    const res = await api.get(`/posts?_start=${pageNumber}&_limit=3`);
     return res.status === 200 ? res.data : [];
   } catch (error) {
     console.log(error);
@@ -24,3 +24,6 @@ export const fetchInvPost = async (id) => {
     console.log(error);
   }
 };
+
+// ..pagination
+//! https://jsonplaceholder.typicode.com/posts?_start=1&_limit=3
