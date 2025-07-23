@@ -27,3 +27,8 @@ export const fetchInvPost = async (id) => {
 
 // ..pagination
 //! https://jsonplaceholder.typicode.com/posts?_start=1&_limit=3
+
+// to delete the post
+export const deletePost = (id) => {
+  return api.delete(`/posts/${id}`);
+};
